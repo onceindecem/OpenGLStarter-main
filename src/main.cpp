@@ -32,7 +32,7 @@ static const char *vShader = "Shaders/shader.vert";
 static const char *fShader = "Shaders/shader.frag";
 
 // แสงสีเหลือง
-glm::vec3 lightColour = glm::vec3(1.0f, 1.0f, 0.0f);
+glm::vec3 lightColour = glm::vec3(0.0f, 0.0f, 0.0f);
 glm::vec3 lightPos = glm::vec3(5.0f, 5.0f, 0.0f);
 
 // กล้อง
@@ -53,7 +53,7 @@ void CreateShaders()
 void CreateOBJ()
 {
     Mesh *obj1 = new Mesh();
-    bool loaded = obj1->CreateMeshFromOBJ("Models/Duck.obj");
+    bool loaded = obj1->CreateMeshFromOBJ("Models/model_Batman Rubber Duck_20210208_191154320.obj");
 
     if (loaded)
     {
@@ -95,7 +95,8 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    unsigned char *data1 = stbi_load("Textures/uvmap.png", &width1, &height1, &nrChannels1, 0);
+     stbi_set_flip_vertically_on_load(true);
+    unsigned char *data1 = stbi_load("Textures/texture.jpeg", &width1, &height1, &nrChannels1, 0);
     if (!data1)
     {
         std::cerr << "Failed to load texture: " << stbi_failure_reason() << "\n";
@@ -141,16 +142,16 @@ int main()
         glm::vec3 cameraPos = camera.getCameraPosition();
 
         glm::vec3 pyramidPosition[] = {
-            glm::vec3(0.0f, 0.0f, -2.5f),
-            glm::vec3(2.0f, 5.0f, -15.0f),
-            glm::vec3(-1.5f, -2.2f, -2.5f),
-            glm::vec3(-3.8f, -2.0f, -12.3f),
-            glm::vec3(2.4f, -0.4f, -3.5f),
-            glm::vec3(-1.7f, 3.0f, -7.5f),
-            glm::vec3(1.3f, -2.0f, -2.5f),
-            glm::vec3(1.5f, 2.0f, -2.5f),
-            glm::vec3(1.5f, 0.2f, -1.5f),
-            glm::vec3(-1.3f, 1.0f, -1.5f)};
+            // glm::vec3(0.0f, 0.0f, -2.5f),
+            // glm::vec3(2.0f, 5.0f, -15.0f),
+            // glm::vec3(-1.5f, -2.2f, -2.5f),
+            // glm::vec3(-3.8f, -2.0f, -12.3f),
+            // glm::vec3(2.4f, -0.4f, -3.5f),
+            // glm::vec3(-1.7f, 3.0f, -7.5f),
+            // glm::vec3(1.3f, -2.0f, -2.5f),
+            // glm::vec3(1.5f, 2.0f, -2.5f),
+            // glm::vec3(1.5f, 0.2f, -1.5f),
+             glm::vec3(-1.3f, 1.0f, -1.5f)}; 
 
         for (int i = 0; i < 10; i++)
         {
@@ -169,7 +170,6 @@ int main()
             glBindTexture(GL_TEXTURE_2D, texture1);
 
             glUniform3fv(shaderList[0].GetUniformLocation("lightPos"), 1, (GLfloat *)&lightPos);
-            glUniform3fv(shaderList[0].GetUniformLocation("lightColour"), 1, (GLfloat *)&lightColour);
             glUniform3fv(shaderList[0].GetUniformLocation("viewPos"), 1, (GLfloat *)&cameraPos);
 
             meshList[i]->RenderMesh();
