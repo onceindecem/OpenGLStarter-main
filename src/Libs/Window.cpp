@@ -1,4 +1,5 @@
 #include "Window.h"
+#include <stdio.h>
 
 Window::Window()
 {
@@ -6,6 +7,13 @@ Window::Window()
     height = 600;
     glfwMajorVersion = 3;
     glfwMinorVersion = 1;
+
+    for (int i = 0; i < 1024; i++) keys[i] = false;
+    lastX = 400; // ครึ่งจอเริ่มต้น
+    lastY = 300;
+    xChange = 0.0f;
+    yChange = 0.0f;
+    mouseFirstMoved = true;
 }
 
 Window::Window(GLint windowWidth, GLint windowHeight, GLint majorVersion, GLint minorVersion)
@@ -14,6 +22,13 @@ Window::Window(GLint windowWidth, GLint windowHeight, GLint majorVersion, GLint 
     height = windowHeight;
     glfwMajorVersion = majorVersion;
     glfwMinorVersion = minorVersion;
+
+    for (int i = 0; i < 1024; i++) keys[i] = false;
+    lastX = width / 2.0f;
+    lastY = height / 2.0f;
+    xChange = 0.0f;
+    yChange = 0.0f;
+    mouseFirstMoved = true;
 }
 
 Window::~Window()
@@ -24,7 +39,6 @@ Window::~Window()
 
 int Window::initialise()
 {
-    //init GLFW
     if (!glfwInit())
     {
         printf("GLFW initialisation failed!");
@@ -32,20 +46,15 @@ int Window::initialise()
         return 1;
     }
 
-    //Setup GLFW window properties
-    //OpenGL version (using 3.1)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, glfwMajorVersion);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, glfwMinorVersion);
-
-    //Core Profile = No Backwards Compatibility
-    glfwWindowHint(GLFW_OPENGL_ANY_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    #ifdef __APPLE__
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    #endif
 
-    mainWindow = glfwCreateWindow(width, height, "Test Window", NULL, NULL);
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 
+    mainWindow = glfwCreateWindow(width, height, "OpenGL Window", nullptr, nullptr);
     if (!mainWindow)
     {
         printf("GLFW window creation failed!");
@@ -53,15 +62,10 @@ int Window::initialise()
         return 1;
     }
 
-    //Get Buffer size information
     glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
-
-    //Set context for GLEW to use
     glfwMakeContextCurrent(mainWindow);
 
-    //Allow modern extension features
     glewExperimental = GL_TRUE;
-
     if (glewInit() != GLEW_OK)
     {
         printf("GLEW initialisation failed!");
@@ -70,10 +74,69 @@ int Window::initialise()
         return 1;
     }
 
-    glEnable(GL_DEPTH_TEST);
+    createCallbacks(); // ผูก callbacks
+    glfwSetWindowUserPointer(mainWindow, this);
+    glfwSetInputMode(mainWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    //Setup Viewport size
+    glEnable(GL_DEPTH_TEST);
     glViewport(0, 0, bufferWidth, bufferHeight);
 
     return 0;
+}
+
+// สำหรับ camera
+float Window::getXChange()
+{
+    float temp = xChange;
+    xChange = 0.0f;
+    return temp;
+}
+
+float Window::getYChange()
+{
+    float temp = yChange;
+    yChange = 0.0f;
+    return temp;
+}
+
+// internal
+void Window::createCallbacks()
+{
+    glfwSetKeyCallback(mainWindow, handleKeys);
+    glfwSetCursorPosCallback(mainWindow, handleMouse);
+}
+
+// static callback
+void Window::handleKeys(GLFWwindow* window, int key, int code, int action, int mode)
+{
+    Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, GL_TRUE);
+
+    if (key >= 0 && key < 1024)
+    {
+        if (action == GLFW_PRESS)
+            theWindow->keys[key] = true;
+        else if (action == GLFW_RELEASE)
+            theWindow->keys[key] = false;
+    }
+}
+
+void Window::handleMouse(GLFWwindow* window, double xPos, double yPos)
+{
+    Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+
+    if (theWindow->mouseFirstMoved)
+    {
+        theWindow->lastX = xPos;
+        theWindow->lastY = yPos;
+        theWindow->mouseFirstMoved = false;
+    }
+
+    theWindow->xChange = xPos - theWindow->lastX;
+    theWindow->yChange = theWindow->lastY - yPos;
+
+    theWindow->lastX = xPos;
+    theWindow->lastY = yPos;
 }
