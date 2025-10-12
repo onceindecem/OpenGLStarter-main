@@ -80,6 +80,60 @@ void CreateOBJ()
     {
         meshList.push_back(batmobile);
     }
+    Mesh *building1 = new Mesh();
+    if (!building1->CreateMeshFromOBJ("Models/Gotham_Skyline_BuildingBlock05.obj"))
+    {
+        std::cout << "Failed to load Building" << std::endl;
+    }
+    else
+    {
+        meshList.push_back(building1);
+    }
+    Mesh *building2 = new Mesh();
+    if (!building2->CreateMeshFromOBJ("Models/Gotham_Skyline_Building03.obj"))
+    {
+        std::cout << "Failed to load Building" << std::endl;
+    }
+    else
+    {
+        meshList.push_back(building2);
+    }
+    Mesh *building3 = new Mesh();
+    if (!building3->CreateMeshFromOBJ("Models/Gotham_Skyline_BuildingBlock03b.obj"))
+    {
+        std::cout << "Failed to load Building" << std::endl;
+    }
+    else
+    {
+        meshList.push_back(building3);
+    }
+    Mesh *building4 = new Mesh();
+    if (!building4->CreateMeshFromOBJ("Models/Gotham_Skyline_BuildingBlock04.obj"))
+    {
+        std::cout << "Failed to load Building" << std::endl;
+    }
+    else
+    {
+        meshList.push_back(building4);
+    }
+    Mesh *building5 = new Mesh();
+    if (!building5->CreateMeshFromOBJ("Models/Gotham_Skyline_Building03.obj"))
+    {
+        std::cout << "Failed to load Building" << std::endl;
+    }
+    else
+    {
+        meshList.push_back(building5);
+    }
+     Mesh *building6 = new Mesh();
+    if (!building6->CreateMeshFromOBJ("Models/Gotham_Skyline_BuildingBlock07.obj"))
+    {
+        std::cout << "Failed to load Building" << std::endl;
+    }
+    else
+    {
+        meshList.push_back(building6);
+    }
 }
 
 int main()
@@ -164,7 +218,7 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     stbi_set_flip_vertically_on_load(true);
-    unsigned char *data3 = stbi_load("Textures/Illustration05.jpg", &width3, &height3, &nrChannels3, 0);
+    unsigned char *data3 = stbi_load("Textures/6751a811-9d71-4e51-85c3-5925439d1f2b.jpg", &width3, &height3, &nrChannels3, 0);
     if (!data3)
     {
         std::cerr << "Failed to load Batmobile texture! reason: " << stbi_failure_reason() << "\n";
@@ -179,6 +233,168 @@ int main()
         glTexImage2D(GL_TEXTURE_2D, 0, format3, width3, height3, 0, format3, GL_UNSIGNED_BYTE, data3);
         glGenerateMipmap(GL_TEXTURE_2D);
         stbi_image_free(data3);
+    }
+    unsigned int texture4;
+    int width4 = 0, height4 = 0, nrChannels4 = 0;
+    glGenTextures(1, &texture4);
+    glBindTexture(GL_TEXTURE_2D, texture4);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    stbi_set_flip_vertically_on_load(true);
+    unsigned char *data4 = stbi_load("Textures/Gotham_Skyline_BuildingBLock01_D.png", &width4, &height4, &nrChannels4, 0);
+    if (!data4)
+    {
+        std::cerr << "Failed to load building texture! reason: " << stbi_failure_reason() << "\n";
+        std::cerr << "Current working directory: " << std::filesystem::current_path() << std::endl;
+    }
+    else
+    {
+        std::cout << "Loaded building texture: " << width4 << "x" << height4 << " Channels: " << nrChannels4 << std::endl;
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        GLenum format4 = (nrChannels4 == 4) ? GL_RGBA : (nrChannels4 == 3) ? GL_RGB
+                                                                           : GL_RED;
+        glTexImage2D(GL_TEXTURE_2D, 0, format4, width4, height4, 0, format4, GL_UNSIGNED_BYTE, data4);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        stbi_image_free(data4);
+    }
+    unsigned int texture5;
+    int width5 = 0, height5 = 0, nrChannels5 = 0;
+    glGenTextures(1, &texture5);
+    glBindTexture(GL_TEXTURE_2D, texture5);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    stbi_set_flip_vertically_on_load(true);
+    unsigned char *data5 = stbi_load("Textures/Gotham_Skyline_Building03_D1.jpg", &width5, &height5, &nrChannels5, 0);
+    if (!data5)
+    {
+        std::cerr << "Failed to load building texture! reason: " << stbi_failure_reason() << "\n";
+        std::cerr << "Current working directory: " << std::filesystem::current_path() << std::endl;
+    }
+    else
+    {
+        std::cout << "Loaded building texture: " << width5 << "x" << height5 << " Channels: " << nrChannels5 << std::endl;
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        GLenum format5 = (nrChannels5 == 4) ? GL_RGBA : (nrChannels5 == 3) ? GL_RGB
+                                                                           : GL_RED;
+        glTexImage2D(GL_TEXTURE_2D, 0, format5, width5, height5, 0, format5, GL_UNSIGNED_BYTE, data5);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        stbi_image_free(data5);
+    }
+    unsigned int texture6;
+    int width6 = 0, height6 = 0, nrChannels6 = 0;
+    glGenTextures(1, &texture6);
+    glBindTexture(GL_TEXTURE_2D, texture6);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    stbi_set_flip_vertically_on_load(true);
+    unsigned char *data6 = stbi_load("Textures/Gotham_Skyline_BuildingBLock01_D.png", &width6, &height6, &nrChannels6, 0);
+    if (!data6)
+    {
+        std::cerr << "Failed to load building texture! reason: " << stbi_failure_reason() << "\n";
+        std::cerr << "Current working directory: " << std::filesystem::current_path() << std::endl;
+    }
+    else
+    {
+        std::cout << "Loaded building texture: " << width6 << "x" << height6 << " Channels: " << nrChannels6 << std::endl;
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        GLenum format6 = (nrChannels6 == 4) ? GL_RGBA : (nrChannels6 == 3) ? GL_RGB
+                                                                           : GL_RED;
+        glTexImage2D(GL_TEXTURE_2D, 0, format6, width6, height6, 0, format6, GL_UNSIGNED_BYTE, data6);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        stbi_image_free(data6);
+    }
+    unsigned int texture7;
+    int width7 = 0, height7 = 0, nrChannels7 = 0;
+    glGenTextures(1, &texture7);
+    glBindTexture(GL_TEXTURE_2D, texture7);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    stbi_set_flip_vertically_on_load(true);
+    unsigned char *data7 = stbi_load("Textures/Gotham_Skyline_BuildingBLock01_D.png", &width7, &height7, &nrChannels7, 0);
+    if (!data7)
+    {
+        std::cerr << "Failed to load building texture! reason: " << stbi_failure_reason() << "\n";
+        std::cerr << "Current working directory: " << std::filesystem::current_path() << std::endl;
+    }
+    else
+    {
+        std::cout << "Loaded building texture: " << width7 << "x" << height7 << " Channels: " << nrChannels7 << std::endl;
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        GLenum format7 = (nrChannels7 == 4) ? GL_RGBA : (nrChannels7 == 3) ? GL_RGB
+                                                                           : GL_RED;
+        glTexImage2D(GL_TEXTURE_2D, 0, format7, width7, height7, 0, format7, GL_UNSIGNED_BYTE, data7);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        stbi_image_free(data7);
+    }
+    unsigned int texture8;
+    int width8 = 0, height8 = 0, nrChannels8 = 0;
+    glGenTextures(1, &texture8);
+    glBindTexture(GL_TEXTURE_2D, texture8);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    stbi_set_flip_vertically_on_load(true);
+    unsigned char *data8 = stbi_load("Textures/Gotham_Skyline_Building03_D1.jpg", &width8, &height8, &nrChannels8, 0);
+    if (!data8)
+    {
+        std::cerr << "Failed to load building texture! reason: " << stbi_failure_reason() << "\n";
+        std::cerr << "Current working directory: " << std::filesystem::current_path() << std::endl;
+    }
+    else
+    {
+        std::cout << "Loaded building texture: " << width8 << "x" << height8 << " Channels: " << nrChannels8 << std::endl;
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        GLenum format8 = (nrChannels8 == 4) ? GL_RGBA : (nrChannels8 == 3) ? GL_RGB
+                                                                           : GL_RED;
+        glTexImage2D(GL_TEXTURE_2D, 0, format8, width8, height8, 0, format8, GL_UNSIGNED_BYTE, data8);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        stbi_image_free(data8);
+    }
+    unsigned int texture9;
+    int width9 = 0, height9 = 0, nrChannels9 = 0;
+    glGenTextures(1, &texture9);
+    glBindTexture(GL_TEXTURE_2D, texture9);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    stbi_set_flip_vertically_on_load(true);
+    unsigned char *data9 = stbi_load("Textures/Gotham_Skyline_Building03_D1.jpg", &width9, &height9, &nrChannels9, 0);
+    if (!data9)
+    {
+        std::cerr << "Failed to load building texture! reason: " << stbi_failure_reason() << "\n";
+        std::cerr << "Current working directory: " << std::filesystem::current_path() << std::endl;
+    }
+    else
+    {
+        std::cout << "Loaded building texture: " << width9 << "x" << height9 << " Channels: " << nrChannels9 << std::endl;
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+        GLenum format9 = (nrChannels9 == 4) ? GL_RGBA : (nrChannels9 == 3) ? GL_RGB
+                                                                           : GL_RED;
+        glTexImage2D(GL_TEXTURE_2D, 0, format9, width9, height9, 0, format9, GL_UNSIGNED_BYTE, data9);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        stbi_image_free(data9);
     }
 
     while (!mainWindow.getShouldClose())
@@ -233,21 +449,110 @@ int main()
 
         meshList[1]->RenderMesh(); // Earth
 
-        
         // -------------------------------
         // Render Batmobile
         // -------------------------------
         glm::mat4 modelBatmobile = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -15.0f, -0.5f)); // วางด้านหน้า scene
         modelBatmobile = glm::rotate(modelBatmobile, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelBatmobile = glm::scale(modelBatmobile, glm::vec3(0.03f));                             // ปรับขนาดให้สมจริง
-        
+        modelBatmobile = glm::scale(modelBatmobile, glm::vec3(0.03f)); // ปรับขนาดให้สมจริง
+
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelBatmobile));
-        
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture3); // Batmobile texture
         glUniform1i(shaderList[0].GetUniformLocation("texture1"), 0);
-        
+
         meshList[2]->RenderMesh(); // Batmobile
+
+        // -------------------------------
+        // Render building1
+        // -------------------------------
+        glm::mat4 modelbuilding1 = glm::translate(glm::mat4(1.0f), glm::vec3(15.0f, -15.0f, -0.5f)); // วางด้านหน้า scene
+        modelbuilding1 = glm::rotate(modelbuilding1, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelbuilding1 = glm::scale(modelbuilding1, glm::vec3(0.0008f)); // ปรับขนาดให้สมจริง
+
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelbuilding1));
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture4); // building1 texture
+        glUniform1i(shaderList[0].GetUniformLocation("texture1"), 0);
+
+        meshList[3]->RenderMesh(); // buliding1
+
+        // -------------------------------
+        // Render building2
+        // -------------------------------
+        glm::mat4 modelbuilding2 = glm::translate(glm::mat4(1.0f), glm::vec3(30.0f, -15.0f, -0.5f)); // วางด้านหน้า scene
+        modelbuilding2 = glm::rotate(modelbuilding2, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelbuilding2 = glm::scale(modelbuilding2, glm::vec3(0.0008f)); // ปรับขนาดให้สมจริง
+
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelbuilding2));
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture5); // building2 texture
+        glUniform1i(shaderList[0].GetUniformLocation("texture1"), 0);
+
+        meshList[4]->RenderMesh(); // buliding2
+
+        // -------------------------------
+        // Render building3
+        // -------------------------------
+        glm::mat4 modelbuilding3 = glm::translate(glm::mat4(1.0f), glm::vec3(-15.0f, -15.0f, -0.5f)); // วางด้านหน้า scene
+        modelbuilding3 = glm::rotate(modelbuilding3, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelbuilding3 = glm::scale(modelbuilding3, glm::vec3(0.0008f)); // ปรับขนาดให้สมจริง
+
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelbuilding3));
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture6); // building3 texture
+        glUniform1i(shaderList[0].GetUniformLocation("texture1"), 0);
+
+        meshList[5]->RenderMesh(); // buliding3
+
+        // -------------------------------
+        // Render building4
+        // -------------------------------
+        glm::mat4 modelbuilding4 = glm::translate(glm::mat4(1.0f), glm::vec3(-30.0f, -15.0f, -0.5f)); // วางด้านหน้า scene
+        modelbuilding4 = glm::rotate(modelbuilding4, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelbuilding4 = glm::scale(modelbuilding4, glm::vec3(0.0008f)); // ปรับขนาดให้สมจริง
+
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelbuilding4));
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture7); // building4 texture
+        glUniform1i(shaderList[0].GetUniformLocation("texture1"), 0);
+
+        meshList[6]->RenderMesh(); // buliding4
+
+        // -------------------------------
+        // Render building5
+        // -------------------------------
+        glm::mat4 modelbuilding5 = glm::translate(glm::mat4(1.0f), glm::vec3(30.0f, -15.0f, -10.0f)); // วางด้านหน้า scene
+        modelbuilding5 = glm::rotate(modelbuilding5, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelbuilding5 = glm::scale(modelbuilding5, glm::vec3(0.0008f)); // ปรับขนาดให้สมจริง
+
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelbuilding5));
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture8); // building5 texture
+        glUniform1i(shaderList[0].GetUniformLocation("texture1"), 0);
+
+        meshList[7]->RenderMesh(); // buliding5
+
+         // -------------------------------
+        // Render building6
+        // -------------------------------
+        glm::mat4 modelbuilding6 = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -15.0f, -20.0f)); // วางด้านหน้า scene
+        modelbuilding6 = glm::rotate(modelbuilding6, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelbuilding6 = glm::scale(modelbuilding6, glm::vec3(0.0008f)); // ปรับขนาดให้สมจริง
+
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelbuilding6));
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture9); // building6 texture
+        glUniform1i(shaderList[0].GetUniformLocation("texture1"), 0);
+
+        meshList[8]->RenderMesh(); // buliding6
 
         glUseProgram(0);
         mainWindow.swapBuffers();
