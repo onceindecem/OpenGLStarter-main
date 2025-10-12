@@ -72,7 +72,7 @@ void CreateOBJ()
         meshList.push_back(Earth);
     }
     Mesh *batmobile = new Mesh();
-    if (!batmobile->CreateMeshFromOBJ("Models/Batmobile2.obj"))
+    if (!batmobile->CreateMeshFromOBJ("Models/Bat-Wing1989.obj"))
     {
         std::cout << "Failed to load Batmobile" << std::endl;
     }
@@ -164,7 +164,7 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     stbi_set_flip_vertically_on_load(true);
-    unsigned char *data3 = stbi_load("Textures/Illustration05.jpg", &width3, &height3, &nrChannels3, 0);
+    unsigned char *data3 = stbi_load("Textures/BakedBatwing.png", &width3, &height3, &nrChannels3, 0);
     if (!data3)
     {
         std::cerr << "Failed to load Batmobile texture! reason: " << stbi_failure_reason() << "\n";
@@ -237,9 +237,9 @@ int main()
         // -------------------------------
         // Render Batmobile
         // -------------------------------
-        glm::mat4 modelBatmobile = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -15.0f, -0.5f)); // วางด้านหน้า scene
-        modelBatmobile = glm::rotate(modelBatmobile, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelBatmobile = glm::scale(modelBatmobile, glm::vec3(0.03f));                             // ปรับขนาดให้สมจริง
+        glm::mat4 modelBatmobile = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -0.5f)); // วางด้านหน้า scene
+       // modelBatmobile = glm::rotate(modelBatmobile, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelBatmobile = glm::scale(modelBatmobile, glm::vec3(0.5f));                             // ปรับขนาดให้สมจริง
         
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelBatmobile));
         
