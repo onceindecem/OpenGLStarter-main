@@ -210,8 +210,10 @@ int main()
         // -------------------------------
         // Render Duck
         // -------------------------------
-        glm::mat4 modelDuck = glm::translate(glm::mat4(1.0f), glm::vec3(-1.3f, -0.20f, -1.5f));
-        modelDuck = glm::scale(modelDuck, glm::vec3(0.07f));
+        glm::mat4 modelDuck = glm::translate(glm::mat4(1.0f), glm::vec3(-6.5f, -1.0f, 8.0f));
+        modelDuck = glm::rotate(modelDuck, glm::radians(-70.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        //modelDuck = glm::rotate(modelDuck, glm::radians(.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        modelDuck = glm::scale(modelDuck, glm::vec3(0.05f));
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelDuck));
 
         glActiveTexture(GL_TEXTURE0);
@@ -237,9 +239,9 @@ int main()
         // -------------------------------
         // Render Batmobile
         // -------------------------------
-        glm::mat4 modelBatmobile = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -0.5f)); // วางด้านหน้า scene
-       // modelBatmobile = glm::rotate(modelBatmobile, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelBatmobile = glm::scale(modelBatmobile, glm::vec3(0.5f));                             // ปรับขนาดให้สมจริง
+        glm::mat4 modelBatmobile = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -20.0f, -1.0f)); // วางด้านหน้า scene
+        modelBatmobile = glm::rotate(modelBatmobile, glm::radians(-35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelBatmobile = glm::scale(modelBatmobile, glm::vec3(5.0f));                             // ปรับขนาดให้สมจริง
         
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelBatmobile));
         
