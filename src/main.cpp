@@ -33,7 +33,7 @@ static const char *vShader = "Shaders/shader.vert";
 static const char *fShader = "Shaders/shader.frag";
 
 // แสงสีเหลือง
-glm::vec3 lightColour = glm::vec3(0.0f, 0.0f, 0.0f);
+glm::vec3 lightColour = glm::vec3(1.0,0.5,0.0);
 glm::vec3 lightPos = glm::vec3(5.0f, 5.0f, 0.0f);
 
 // กล้อง
@@ -407,7 +407,7 @@ int main()
         camera.keyControl(mainWindow.getKeys(), deltaTime);
         camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 
-        glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shaderList[0].UseShader();
@@ -422,6 +422,11 @@ int main()
         glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
         glUniform3fv(shaderList[0].GetUniformLocation("lightPos"), 1, (GLfloat *)&lightPos);
         glUniform3fv(shaderList[0].GetUniformLocation("viewPos"), 1, (GLfloat *)&cameraPos);
+
+        // light
+        glUniform3fv(shaderList[0].GetUniformLocation("lightColour"), 1, glm::value_ptr(lightColour));
+        glUniform3fv(shaderList[0].GetUniformLocation("lightPos"), 1, glm::value_ptr(lightPos));
+        glUniform3fv(shaderList[0].GetUniformLocation("viewPos"), 1, glm::value_ptr(cameraPos));
 
         // -------------------------------
         // Render Duck
