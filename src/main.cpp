@@ -32,8 +32,8 @@ static const char *vShader = "Shaders/shader.vert";
 // Fragment Shader
 static const char *fShader = "Shaders/shader.frag";
 
-// แสงสีเหลือง
-glm::vec3 lightColour = glm::vec3(1.0,0.5,0.0);
+// light 1
+glm::vec3 lightColour = glm::vec3(0.8f, 0.6f, 0.4f);
 glm::vec3 lightPos = glm::vec3(5.0f, 5.0f, 0.0f);
 
 // กล้อง
@@ -391,6 +391,7 @@ int main()
         glUniform3fv(shaderList[0].GetUniformLocation("lightColour"), 1, glm::value_ptr(lightColour));
         glUniform3fv(shaderList[0].GetUniformLocation("lightPos"), 1, glm::value_ptr(lightPos));
         glUniform3fv(shaderList[0].GetUniformLocation("viewPos"), 1, glm::value_ptr(cameraPos));
+
 
         // -------------------------------
         // Render Duck
