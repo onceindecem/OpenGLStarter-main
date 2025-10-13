@@ -98,15 +98,6 @@ void CreateOBJ()
     {
         meshList.push_back(building2);
     }
-    Mesh *building3 = new Mesh();
-    if (!building3->CreateMeshFromOBJ("Models/Gotham_Skyline_BuildingBlock03b.obj"))
-    {
-        std::cout << "Failed to load Building" << std::endl;
-    }
-    else
-    {
-        meshList.push_back(building3);
-    }
     Mesh *building4 = new Mesh();
     if (!building4->CreateMeshFromOBJ("Models/Gotham_Skyline_BuildingBlock04.obj"))
     {
@@ -125,7 +116,7 @@ void CreateOBJ()
     {
         meshList.push_back(building5);
     }
-     Mesh *building6 = new Mesh();
+    Mesh *building6 = new Mesh();
     if (!building6->CreateMeshFromOBJ("Models/Gotham_Skyline_BuildingBlock07.obj"))
     {
         std::cout << "Failed to load Building" << std::endl;
@@ -288,33 +279,6 @@ int main()
         glGenerateMipmap(GL_TEXTURE_2D);
         stbi_image_free(data5);
     }
-    unsigned int texture6;
-    int width6 = 0, height6 = 0, nrChannels6 = 0;
-    glGenTextures(1, &texture6);
-    glBindTexture(GL_TEXTURE_2D, texture6);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    stbi_set_flip_vertically_on_load(true);
-    unsigned char *data6 = stbi_load("Textures/Gotham_Skyline_BuildingBLock01_D.png", &width6, &height6, &nrChannels6, 0);
-    if (!data6)
-    {
-        std::cerr << "Failed to load building texture! reason: " << stbi_failure_reason() << "\n";
-        std::cerr << "Current working directory: " << std::filesystem::current_path() << std::endl;
-    }
-    else
-    {
-        std::cout << "Loaded building texture: " << width6 << "x" << height6 << " Channels: " << nrChannels6 << std::endl;
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-        GLenum format6 = (nrChannels6 == 4) ? GL_RGBA : (nrChannels6 == 3) ? GL_RGB
-                                                                           : GL_RED;
-        glTexImage2D(GL_TEXTURE_2D, 0, format6, width6, height6, 0, format6, GL_UNSIGNED_BYTE, data6);
-        glGenerateMipmap(GL_TEXTURE_2D);
-        stbi_image_free(data6);
-    }
     unsigned int texture7;
     int width7 = 0, height7 = 0, nrChannels7 = 0;
     glGenTextures(1, &texture7);
@@ -380,7 +344,7 @@ int main()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     stbi_set_flip_vertically_on_load(true);
-    unsigned char *data9 = stbi_load("Textures/Gotham_Skyline_Building03_D1.jpg", &width9, &height9, &nrChannels9, 0);
+    unsigned char *data9 = stbi_load("Textures/Gotham_Skyline_BuildingBLock01_D.png", &width9, &height9, &nrChannels9, 0);
     if (!data9)
     {
         std::cerr << "Failed to load building texture! reason: " << stbi_failure_reason() << "\n";
@@ -407,7 +371,7 @@ int main()
         camera.keyControl(mainWindow.getKeys(), deltaTime);
         camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
 
-        glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         shaderList[0].UseShader();
@@ -431,9 +395,9 @@ int main()
         // -------------------------------
         // Render Duck
         // -------------------------------
-        glm::mat4 modelDuck = glm::translate(glm::mat4(1.0f), glm::vec3(-6.5f, -1.0f, 8.0f));
-        modelDuck = glm::rotate(modelDuck, glm::radians(-70.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        //modelDuck = glm::rotate(modelDuck, glm::radians(.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        glm::mat4 modelDuck = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -1.0f, 0.0f));
+        modelDuck = glm::rotate(modelDuck, glm::radians(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        // modelDuck = glm::rotate(modelDuck, glm::radians(.0f), glm::vec3(1.0f, 0.0f, 0.0f));
         modelDuck = glm::scale(modelDuck, glm::vec3(0.05f));
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelDuck));
 
@@ -446,8 +410,8 @@ int main()
         // -------------------------------
         // Render earth
         // -------------------------------
-        glm::mat4 modelEarth = glm::translate(glm::mat4(1.0f), glm::vec3(2.0f, 2.0f, -5.0f));
-        modelEarth = glm::scale(modelEarth, glm::vec3(3.8f));
+        glm::mat4 modelEarth = glm::translate(glm::mat4(1.0f), glm::vec3(-47.0f, 25.0f, -60.0f));
+        modelEarth = glm::scale(modelEarth, glm::vec3(7.0f));
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelEarth));
 
         glActiveTexture(GL_TEXTURE0);
@@ -459,10 +423,10 @@ int main()
         // -------------------------------
         // Render Batmobile
         // -------------------------------
-        glm::mat4 modelBatmobile = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -20.0f, -1.0f)); // วางด้านหน้า scene
-        modelBatmobile = glm::rotate(modelBatmobile, glm::radians(-35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelBatmobile = glm::scale(modelBatmobile, glm::vec3(5.0f));                             // ปรับขนาดให้สมจริง
-        
+        glm::mat4 modelBatmobile = glm::translate(glm::mat4(1.0f), glm::vec3(-5.0f, -20.0f, -6.0f)); // วางด้านหน้า scene
+        modelBatmobile = glm::rotate(modelBatmobile, glm::radians(38.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelBatmobile = glm::scale(modelBatmobile, glm::vec3(5.0f)); // ปรับขนาดให้สมจริง
+
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelBatmobile));
 
         glActiveTexture(GL_TEXTURE0);
@@ -474,9 +438,9 @@ int main()
         // -------------------------------
         // Render building1
         // -------------------------------
-        glm::mat4 modelbuilding1 = glm::translate(glm::mat4(1.0f), glm::vec3(15.0f, -15.0f, -0.5f)); // วางด้านหน้า scene
+        glm::mat4 modelbuilding1 = glm::translate(glm::mat4(1.0f), glm::vec3(32.0f, -40.0f, -10.0f)); // วางด้านหน้า scene
         modelbuilding1 = glm::rotate(modelbuilding1, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelbuilding1 = glm::scale(modelbuilding1, glm::vec3(0.0008f)); // ปรับขนาดให้สมจริง
+        modelbuilding1 = glm::scale(modelbuilding1, glm::vec3(0.0020f)); // ปรับขนาดให้สมจริง
 
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelbuilding1));
 
@@ -489,9 +453,9 @@ int main()
         // -------------------------------
         // Render building2
         // -------------------------------
-        glm::mat4 modelbuilding2 = glm::translate(glm::mat4(1.0f), glm::vec3(30.0f, -15.0f, -0.5f)); // วางด้านหน้า scene
+        glm::mat4 modelbuilding2 = glm::translate(glm::mat4(1.0f), glm::vec3(20.0f, -40.0f, -25.0f)); // วางด้านหน้า scene
         modelbuilding2 = glm::rotate(modelbuilding2, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelbuilding2 = glm::scale(modelbuilding2, glm::vec3(0.0008f)); // ปรับขนาดให้สมจริง
+        modelbuilding2 = glm::scale(modelbuilding2, glm::vec3(0.0015f)); // ปรับขนาดให้สมจริง
 
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelbuilding2));
 
@@ -501,27 +465,13 @@ int main()
 
         meshList[4]->RenderMesh(); // buliding2
 
-        // -------------------------------
-        // Render building3
-        // -------------------------------
-        glm::mat4 modelbuilding3 = glm::translate(glm::mat4(1.0f), glm::vec3(-15.0f, -15.0f, -0.5f)); // วางด้านหน้า scene
-        modelbuilding3 = glm::rotate(modelbuilding3, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelbuilding3 = glm::scale(modelbuilding3, glm::vec3(0.0008f)); // ปรับขนาดให้สมจริง
-
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelbuilding3));
-
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture6); // building3 texture
-        glUniform1i(shaderList[0].GetUniformLocation("texture1"), 0);
-
-        meshList[5]->RenderMesh(); // buliding3
 
         // -------------------------------
         // Render building4
         // -------------------------------
-        glm::mat4 modelbuilding4 = glm::translate(glm::mat4(1.0f), glm::vec3(-30.0f, -15.0f, -0.5f)); // วางด้านหน้า scene
-        modelbuilding4 = glm::rotate(modelbuilding4, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelbuilding4 = glm::scale(modelbuilding4, glm::vec3(0.0008f)); // ปรับขนาดให้สมจริง
+        glm::mat4 modelbuilding4 = glm::translate(glm::mat4(1.0f), glm::vec3(-25.0f, -40.0f, 20.0f)); // วางด้านหน้า scene
+        modelbuilding4 = glm::rotate(modelbuilding4, glm::radians(40.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelbuilding4 = glm::scale(modelbuilding4, glm::vec3(0.0020f)); // ปรับขนาดให้สมจริง
 
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelbuilding4));
 
@@ -529,14 +479,14 @@ int main()
         glBindTexture(GL_TEXTURE_2D, texture7); // building4 texture
         glUniform1i(shaderList[0].GetUniformLocation("texture1"), 0);
 
-        meshList[6]->RenderMesh(); // buliding4
+        meshList[5]->RenderMesh(); // buliding4
 
         // -------------------------------
         // Render building5
         // -------------------------------
-        glm::mat4 modelbuilding5 = glm::translate(glm::mat4(1.0f), glm::vec3(30.0f, -15.0f, -10.0f)); // วางด้านหน้า scene
+        glm::mat4 modelbuilding5 = glm::translate(glm::mat4(1.0f), glm::vec3(-40.0f, -40.0f, 7.0f)); // วางด้านหน้า scene
         modelbuilding5 = glm::rotate(modelbuilding5, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelbuilding5 = glm::scale(modelbuilding5, glm::vec3(0.0008f)); // ปรับขนาดให้สมจริง
+        modelbuilding5 = glm::scale(modelbuilding5, glm::vec3(0.0015f)); // ปรับขนาดให้สมจริง
 
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelbuilding5));
 
@@ -544,14 +494,14 @@ int main()
         glBindTexture(GL_TEXTURE_2D, texture8); // building5 texture
         glUniform1i(shaderList[0].GetUniformLocation("texture1"), 0);
 
-        meshList[7]->RenderMesh(); // buliding5
+        meshList[6]->RenderMesh(); // buliding5
 
-         // -------------------------------
+        // -------------------------------
         // Render building6
         // -------------------------------
-        glm::mat4 modelbuilding6 = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, -15.0f, -20.0f)); // วางด้านหน้า scene
-        modelbuilding6 = glm::rotate(modelbuilding6, glm::radians(35.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-        modelbuilding6 = glm::scale(modelbuilding6, glm::vec3(0.0008f)); // ปรับขนาดให้สมจริง
+        glm::mat4 modelbuilding6 = glm::translate(glm::mat4(1.0f), glm::vec3(-25.0f, -40.0f, -35.0f)); // วางด้านหน้า scene
+        modelbuilding6 = glm::rotate(modelbuilding6, glm::radians(130.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        modelbuilding6 = glm::scale(modelbuilding6, glm::vec3(0.0025f)); // ปรับขนาดให้สมจริง
 
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(modelbuilding6));
 
@@ -559,7 +509,7 @@ int main()
         glBindTexture(GL_TEXTURE_2D, texture9); // building6 texture
         glUniform1i(shaderList[0].GetUniformLocation("texture1"), 0);
 
-        meshList[8]->RenderMesh(); // buliding6
+        meshList[7]->RenderMesh(); // buliding6
 
         glUseProgram(0);
         mainWindow.swapBuffers();
